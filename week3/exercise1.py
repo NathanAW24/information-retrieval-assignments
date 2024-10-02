@@ -24,7 +24,7 @@ df_table2 = pd.DataFrame(table2, index=indices)
 
 def tf_idf(doc: Literal['Doc1', 'Doc2', 'Doc3'], index: Literal['car', 'auto', 'insurance', 'best']) -> float:
     # function implementation
-    return df_table1[doc][index] * df_table2['idf'][index]
+    return ( df_table1[doc][index] / (df_table1[doc].sum()) ) * df_table2['idf'][index]
 
 for doc in ['Doc1', 'Doc2', 'Doc3']:
     for index in ['car', 'auto', 'insurance', 'best']:

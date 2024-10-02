@@ -6,7 +6,7 @@ With the answers done in the same directory, with `exercise1.py`, here is the mo
 ...
 def tf_idf(doc: Literal['Doc1', 'Doc2', 'Doc3'], index: Literal['car', 'auto', 'insurance', 'best']) -> float:
     # function implementation
-    return df_table1[doc][index] * df_table2['idf'][index]
+    return ( df_table1[doc][index] / (df_table1[doc].sum()) ) * df_table2['idf'][index]
 
 for doc in ['Doc1', 'Doc2', 'Doc3']:
     for index in ['car', 'auto', 'insurance', 'best']:
