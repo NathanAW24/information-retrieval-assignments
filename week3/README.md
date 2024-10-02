@@ -57,3 +57,35 @@ ppmi(w2, c1) = 0.12553088208385882
 ppmi(w2, c2) = 0
 ppmi(w2, c3) = 0.3479233034203066
 ```
+
+## Exercise 3
+Important part of the code
+```python
+...
+# Cosine similarity
+def cosine_similarity(vector1: List[float], vector2: List[float]) -> float:
+    dot_product = sum(a * b for a, b in zip(vector1, vector2))
+    magnitude1 = math.sqrt(sum(a * a for a in vector1))
+    magnitude2 = math.sqrt(sum(b * b for b in vector2))
+    if magnitude1 == 0 or magnitude2 == 0:
+        return 0.0
+    return dot_product / (magnitude1 * magnitude2)
+
+# Euclidean distance
+def euclidean_distance(vector1: List[float], vector2: List[float]) -> float:
+    return math.sqrt(sum((a - b) ** 2 for a, b in zip(vector1, vector2)))
+
+for vector_key in vectors.keys():
+    print(f"cosine_similarity(x, {vector_key}) = {cosine_similarity(x, vectors[vector_key])}")
+    print(f"euclidean_distance(x, {vector_key}) = {euclidean_distance(x, vectors[vector_key])}")
+```
+
+Here is the result
+```python
+cosine_similarity(x, a) = 0.8944271909999159
+euclidean_distance(x, a) = 1.5811388300841898
+cosine_similarity(x, b) = 0.9999999999999998
+euclidean_distance(x, b) = 2.8284271247461903
+cosine_similarity(x, c) = 0.9899494936611665
+euclidean_distance(x, c) = 7.211102550927978
+```
