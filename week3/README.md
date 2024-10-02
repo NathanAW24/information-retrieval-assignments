@@ -15,18 +15,18 @@ for doc in ['Doc1', 'Doc2', 'Doc3']:
 
 Here is the results for each `td_idf(doc, index)` values.
 ```
-tf_idf("Doc1", "car") = 44.55
-tf_idf("Doc1", "auto") = 6.24
-tf_idf("Doc1", "insurance") = 0.0
-tf_idf("Doc1", "best") = 21.0
-tf_idf("Doc2", "car") = 6.6
-tf_idf("Doc2", "auto") = 68.64
-tf_idf("Doc2", "insurance") = 53.46
-tf_idf("Doc2", "best") = 0.0
-tf_idf("Doc3", "car") = 39.599999999999994
-tf_idf("Doc3", "auto") = 0.0
-tf_idf("Doc3", "insurance") = 46.980000000000004
-tf_idf("Doc3", "best") = 25.5
+tf_idf(Doc1, car) = 1.0125
+tf_idf(Doc1, auto) = 0.14181818181818182
+tf_idf(Doc1, insurance) = 0.0
+tf_idf(Doc1, best) = 0.4772727272727273
+tf_idf(Doc2, car) = 0.09428571428571428
+tf_idf(Doc2, auto) = 0.9805714285714285
+tf_idf(Doc2, insurance) = 0.7637142857142858
+tf_idf(Doc2, best) = 0.0
+tf_idf(Doc3, car) = 0.5657142857142857
+tf_idf(Doc3, auto) = 0.0
+tf_idf(Doc3, insurance) = 0.6711428571428573
+tf_idf(Doc3, best) = 0.36428571428571427
 ```
 
 ## Exercise 2
