@@ -62,9 +62,13 @@ ppmi(w2, c3) = 0.3479233034203066
 Important part of the code
 ```python
 ...
+# Dot product similarity
+def dot_product_similarity(vector1: List[float], vector2: List[float]) -> float:
+    return sum(a * b for a, b in zip(vector1, vector2))
+
 # Cosine similarity
 def cosine_similarity(vector1: List[float], vector2: List[float]) -> float:
-    dot_product = sum(a * b for a, b in zip(vector1, vector2))
+    dot_product = dot_product_similarity(vector1, vector2)
     magnitude1 = math.sqrt(sum(a * a for a in vector1))
     magnitude2 = math.sqrt(sum(b * b for b in vector2))
     if magnitude1 == 0 or magnitude2 == 0:
@@ -76,19 +80,27 @@ def euclidean_distance(vector1: List[float], vector2: List[float]) -> float:
     return math.sqrt(sum((a - b) ** 2 for a, b in zip(vector1, vector2)))
 
 for vector_key in vectors.keys():
+    print(f"dot_product_similarity(x, {vector_key}) = {dot_product_similarity(x, vectors[vector_key])}")
     print(f"cosine_similarity(x, {vector_key}) = {cosine_similarity(x, vectors[vector_key])}")
     print(f"euclidean_distance(x, {vector_key}) = {euclidean_distance(x, vectors[vector_key])}")
 ```
 
 Here is the result
-```python
+```
+dot_product_similarity(x, a) = 4.0
 cosine_similarity(x, a) = 0.8944271909999159
 euclidean_distance(x, a) = 1.5811388300841898
+dot_product_similarity(x, b) = 16
 cosine_similarity(x, b) = 0.9999999999999998
 euclidean_distance(x, b) = 2.8284271247461903
+dot_product_similarity(x, c) = 28
 cosine_similarity(x, c) = 0.9899494936611665
 euclidean_distance(x, c) = 7.211102550927978
 ```
+
+By `dot_product_similarity`, most similar to `x` is `c`
+By `cosine_similarity`, most similar to `x` is `b`.
+By `euclidean_distance`, most similar to `x` is `a`
 
 ## Exercise 4
 The code used.
