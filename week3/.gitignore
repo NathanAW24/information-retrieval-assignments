@@ -1,2 +1,5 @@
 # ignore venv
 week3 
+
+# DS_STORE
+.DS_STORE
