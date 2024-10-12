@@ -26,27 +26,28 @@ def create_term_document_matrix(docs):
     return pd.DataFrame(data, index=doc_ids)
 
 # Function to calculate IDF values for each term
-def calculate_idf(term_document_matrix):
+def calculate_idf(term_document_matrix, smoothing_numerator=0.5, smoothing_denominator=0.5):
     N = len(term_document_matrix)  # Total number of documents
     idf_scores = {}
     for term in term_document_matrix.columns:
         df = term_document_matrix[term].sum()  # Document frequency of the term
-        idf_scores[term] = math.log(N / (1 + df))
+        idf_scores[term] = math.log10((N + smoothing_numerator) / (df + smoothing_denominator))
     return pd.Series(idf_scores, name="IDF")
 
 # Create the term-document matrix and calculate IDF scores
 term_document_matrix = create_term_document_matrix(docs)
 idf_scores = calculate_idf(term_document_matrix)
 
+print("Term document matrix:\n", term_document_matrix)
 print("IDF scores:\n", idf_scores)
 
 # Function to calculate c_t for each term
-def calculate_ct(term_document_matrix):
+def calculate_ct(term_document_matrix, smoothing_numerator=0.5, smoothing_denominator=0.5):
     N = len(term_document_matrix)  # Total number of documents
     ct_scores = {}
     for term in term_document_matrix.columns:
         df = term_document_matrix[term].sum()  # Document frequency of the term
-        ct_scores[term] = math.log((N - df + 0.5) / (df + 0.5))
+        ct_scores[term] = math.log10((N - df + smoothing_numerator) / (df + smoothing_denominator))
     return pd.Series(ct_scores, name="c_t")
 
 # Function to calculate RSV for a given query
@@ -67,4 +68,5 @@ ct_scores = calculate_ct(term_document_matrix)
 rsv_scores = calculate_rsv(query_terms, term_document_matrix, ct_scores)
 
 # Display the ordered RSV scores for the documents
-print("RSV scores:\n", rsv_scores)
+print("ct scores:\n", ct_scores)
+print("RSV scores (High to Low):\n", rsv_scores)
