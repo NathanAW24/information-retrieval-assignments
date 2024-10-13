@@ -70,4 +70,4 @@ query = "mvykw"
 _rsv = rsv(_c, query, docs)
 print(f"RSV with given c = {_rsv}")
 
-print(f"Sorting Based on RSV (ascending), {sorted(_rsv, key = _rsv.get)}")
+print(f"Sorting Based on RSV (descending), {sorted(_rsv, key = _rsv.get, reverse=True)}")

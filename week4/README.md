@@ -67,7 +67,7 @@ query = "mvykw"
 _rsv = rsv(_c, query, docs)
 print(f"RSV with given c = {_rsv}")
 
-print(f"Sorting Based on RSV (ascending), {sorted(_rsv, key = _rsv.get)}")
+print(f"Sorting Based on RSV (descending), {sorted(_rsv, key = _rsv.get, reverse=True)}")
 ```
 
 Here is the result for all.
@@ -79,7 +79,7 @@ IDF score, With smoothing = 0.5
 C Score, With smoothing = 0.5 
  C={'x': -0.146128035678238, 'y': -1.041392685158225, 'z': 0.146128035678238, 'w': -0.146128035678238, 'v': -0.146128035678238, 'k': 0.47712125471966244, 'm': 0.146128035678238}
 RSV with given c = {'D3': -1.041392685158225, 'D5': -1.041392685158225, 'D2': -0.7103994661168005, 'D4': -1.3336487565147008, 'D1': -1.1875207208364629}
-Sorting Based on RSV (ascending), ['D4', 'D1', 'D3', 'D5', 'D2']
+Sorting Based on RSV (descending), ['D2', 'D3', 'D5', 'D1', 'D4']
 ```
 
 Extra notes, here keep in mind that `D3` and `D5` has the same RSV, so it equal in relevance. However, the python function output would still compare it and put it in place.
@@ -201,7 +201,7 @@ rsv(mvykw, D7, ...) = 0.7626122253364118
 rsv(mvykw, D8, ...) = 0.44597715634185464
 ```
 
-Based on this RSV lowest to highest, `D6` &rarr; `D8` &rarr; `D7`. We don't need to use info about non-relevant docs, because they contain irrelevant terms, which might increase RSV value unecessarily, even though the document is irrelevant.
+Based on this RSV highest to lowest (descending), `D7` &rarr; `D8` &rarr; `D6`. We don't need to use info about non-relevant docs, because they contain irrelevant terms, which might increase RSV value unecessarily, even though the document is irrelevant.
 
 # Exercise 3
 File is in `exercise3.py`.
