@@ -1,7 +1,77 @@
 # Exercise 1
 Code is in `exercise1.py`.
 
+The code for `df`.
+```python
+def df(letters, docs):
+    _df = defaultdict(int)
+    
+    # populate dft
+    for letter_target in letters:
+        for doc_values in docs.values():
+            if letter_target in doc_values:
+                _df[letter_target] += 1
 
+    return dict(_df)
+```
+
+The code for `idf`.
+
+```python
+def idf(letters, docs, smoothing=0):
+    N = len(docs)
+
+    _df = df(letters, docs)
+
+    # calculate idf
+    _idf = defaultdict(int)
+    for letter_target in letters:
+        _idf[letter_target] = math.log10((N + smoothing) / (_df[letter_target] + smoothing))
+
+    return dict(_idf)
+
+```
+
+The code for `c` score.
+```python
+def c(letters, docs, smoothing=0):
+    N = len(docs)
+
+    _df = df(letters, docs)
+
+    _c = defaultdict(int)
+    for letter_target in letters:
+        _c[letter_target] = math.log10( (N - _df[letter_target] + smoothing) / (_df[letter_target] + smoothing) )
+
+    return dict(_c)
+
+```
+
+The code for `rsv` score.
+```python
+def rsv(c, query, docs):
+    _rsv = defaultdict(int)
+
+    for letter in query:
+        for doc, doc_values in docs.items():
+            if letter in doc_values:
+                _rsv[doc] += c.get(letter, 0)
+
+    return dict(_rsv)
+
+```
+
+Here is the result for all.
+```bash
+IDF score, With smoothing = 0 
+ idf={'x': 0.2218487496163564, 'y': 0.0, 'z': 0.3979400086720376, 'w': 0.2218487496163564, 'v': 0.2218487496163564, 'k': 0.6989700043360189, 'm': 0.3979400086720376}
+IDF score, With smoothing = 0.5 
+ idf={'x': 0.1962946451439682, 'y': 0.0, 'z': 0.3424226808222063, 'w': 0.1962946451439682, 'v': 0.1962946451439682, 'k': 0.5642714304385625, 'm': 0.3424226808222063}
+C Score, With smoothing = 0.5 
+ C={'x': -0.146128035678238, 'y': -1.041392685158225, 'z': 0.146128035678238, 'w': -0.146128035678238, 'v': -0.146128035678238, 'k': 0.47712125471966244, 'm': 0.146128035678238}
+RSV with given c = {'D3': -1.041392685158225, 'D5': -1.041392685158225, 'D2': -0.7103994661168005, 'D4': -1.3336487565147008, 'D1': -1.1875207208364629}
+Sorting Based on RSV (ascending), ['D4', 'D1', 'D3', 'D5', 'D2']
+```
 
 # Exercise 2
 Code is in `exercise2.py`.
