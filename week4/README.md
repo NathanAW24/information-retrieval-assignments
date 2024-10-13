@@ -61,6 +61,15 @@ def rsv(c, query, docs):
 
 ```
 
+Sorting code
+```python
+query = "mvykw"
+_rsv = rsv(_c, query, docs)
+print(f"RSV with given c = {_rsv}")
+
+print(f"Sorting Based on RSV (ascending), {sorted(_rsv, key = _rsv.get)}")
+```
+
 Here is the result for all.
 ```bash
 IDF score, With smoothing = 0 
@@ -72,6 +81,8 @@ C Score, With smoothing = 0.5
 RSV with given c = {'D3': -1.041392685158225, 'D5': -1.041392685158225, 'D2': -0.7103994661168005, 'D4': -1.3336487565147008, 'D1': -1.1875207208364629}
 Sorting Based on RSV (ascending), ['D4', 'D1', 'D3', 'D5', 'D2']
 ```
+
+Extra notes, here keep in mind that `D3` and `D5` has the same RSV, so it equal in relevance. However, the python function output would still compare it and put it in place.
 
 # Exercise 2
 Code is in `exercise2.py`.
