@@ -1,3 +1,8 @@
+# Exercise 1
+Code is in `exercise1.py`.
+
+
+
 # Exercise 2
 Code is in `exercise2.py`.
 
@@ -114,6 +119,8 @@ rsv(mvykw, D6, ...) = 0.2523130763983849
 rsv(mvykw, D7, ...) = 0.7626122253364118
 rsv(mvykw, D8, ...) = 0.44597715634185464
 ```
+
+Based on this RSV lowest to highest, `D6` &rarr; `D8` &rarr; `D7`. We don't need to use info about non-relevant docs, because they contain irrelevant terms, which might increase RSV value unecessarily, even though the document is irrelevant.
 
 # Exercise 3
 File is in `exercise3.py`.
