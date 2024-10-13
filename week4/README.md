@@ -114,3 +114,58 @@ rsv(mvykw, D6, ...) = 0.2523130763983849
 rsv(mvykw, D7, ...) = 0.7626122253364118
 rsv(mvykw, D8, ...) = 0.44597715634185464
 ```
+
+# Exercise 3
+File is in `exercise3.py`.
+
+To calculate `tf_`,`df_`, `idf_`, `_score`.
+```python
+...
+def tf_(doc: List[str]):
+    frequencies = defaultdict(int)
+    for letter in doc:
+        frequencies[letter] += 1
+
+    return dict(frequencies)
+...
+def df_(docs: List[List[str]]):
+    df = defaultdict(int)
+
+    for doc in docs:
+        for letter in doc:
+            df[letter] += 1
+
+    return dict(df)
+...
+def idf_(df, corpus_size):
+    idf = {}
+    for term, freq in df.items():
+        idf[term] = round(math.log((corpus_size) / (freq)),2)
+    return idf
+...
+def _score(query, doc, docs, k1=1.5, b=0.75):
+    score = 0.0
+    tf = tf_(doc)
+    df = df_(docs)
+    idf = idf_(df, len(docs))
+    avg_doc_len = sum(len(doc) for doc in docs)/len(docs) # calculate average document length
+    for term in query:
+        if term not in tf.keys():
+            continue
+
+        numerator = (k1+1) * tf[term]
+        denominator = k1 * ( (1-b) + b*len(doc)/avg_doc_len ) + tf[term]
+
+        score += idf[term] * numerator/denominator
+    return score
+...
+```
+
+With this results for each of those function and given params.
+```bash
+tf_(['a', 'b', 'b', 'c', 'd']) = {'a': 1, 'b': 2, 'c': 1, 'd': 1}
+df_([['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e']]) = {'a': 1, 'b': 2, 'c': 3, 'd': 2, 'e': 1}
+idf_({'a': 1, 'b': 2, 'c': 3, 'd': 2, 'e': 1}) = {'a': 1.1, 'b': 0.41, 'c': 0.0, 'd': 0.41, 'e': 1.1}
+_score(['b', 'c', 'e'], ['b', 'c', 'd'],
+[['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e']]) = 0.41
+```
