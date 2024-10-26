@@ -45,8 +45,11 @@ def average_precision(r):
     Average precision
     """
     #write your code here
-    avg_p = 0
-    return avg_p
+    r = np.asarray(r)
+    precisions = [precision_at_k(r, k + 1) for k in range(len(r)) if r[k]]
+    if not precisions:
+        return 0.0
+    return np.mean(precisions)
 
 def mean_average_precision(rs):
     """Score is mean average precision
@@ -137,9 +140,10 @@ if __name__ == "__main__":
     print(precision_at_k([0, 0, 1],1))
     print(precision_at_k([0, 0, 1],2))
     print(precision_at_k([0, 0, 1],3))
-    print(precision_at_k([0, 0, 1],4))
+    # print(precision_at_k([0, 0, 1],4))
 
 
+    print(average_precision([1, 1, 0, 1, 0, 1, 0, 0, 0, 1]))
     print(average_precision([0,1,0,0,1,0,1,0,0,0]))
     print(average_precision([1,0,1,0,0,1,0,0,1,1]))
     print(mean_average_precision([[1,0,1,0,0,1,0,0,1,1],[0,1,0,0,1,0,1,0,0,0]]))
