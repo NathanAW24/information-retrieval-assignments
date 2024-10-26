@@ -137,20 +137,17 @@ def ndcg_at_k(r, k, method=0):
     Returns:
     Normalized discounted cumulative gain
     """
-    # dcg_max = dcg_at_k(sorted(r, reverse=True), k, method)
-    # if not dcg_max:
-    #     return 0.
-    # return dcg_at_k(r, k, method) / dcg_max
-    return
+    r = np.asarray(r)[:k]
+    dcg_max = dcg_at_k(sorted(r, reverse=True), k, method)
+    if dcg_max == 0:
+        return 0.0
+    return dcg_at_k(r, k, method) / dcg_max
 
 
 if __name__ == "__main__":
     print(precision_at_k([0, 0, 1],1))
     print(precision_at_k([0, 0, 1],2))
     print(precision_at_k([0, 0, 1],3))
-    # print(precision_at_k([0, 0, 1],4))
-
-
     print(average_precision([1, 1, 0, 1, 0, 1, 0, 0, 0, 1]))
     print(average_precision([0,1,0,0,1,0,1,0,0,0]))
     print(average_precision([1,0,1,0,0,1,0,0,1,1]))
