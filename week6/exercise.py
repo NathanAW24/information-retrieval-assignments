@@ -67,30 +67,21 @@ def mean_average_precision(rs):
     Mean average precision
     """
     #write your code here
-    m_avg_p = 0
-    return m_avg_p
+    return np.mean([average_precision(r) for r in rs])
 
 
 def dcg_at_k(r, k, method=0):
     """Score is discounted cumulative gain (dcg)
-    Relevance is positive real values. Can use binary
+    Relevance is positive real values.  Can use binary
     as the previous methods.
-    Example from
-    http://www.stanford.edu/class/cs276/handouts/EvaluationNew-handout-6-per
-    .pdf
-    >>> r = [3, 2, 3, 0, 0, 1, 2, 2, 3, 0]
-    >>> dcg_at_k(r, 1)
+    >>> dcg_at_k([3, 2, 3, 0, 1, 2], 1)
     3.0
-    >>> dcg_at_k(r, 1, method=1)
-    3.0
-    >>> dcg_at_k(r, 2)
+    >>> dcg_at_k([3, 2, 3, 0, 1, 2], 2)
     5.0
-    >>> dcg_at_k(r, 2, method=1)
-    4.2618595071429155
-    >>> dcg_at_k(r, 10)
+    >>> dcg_at_k([3, 2, 3, 0, 1, 2], 6)
     9.6051177391888114
-    >>> dcg_at_k(r, 11)
-    9.6051177391888114
+    >>> dcg_at_k([3, 2, 3, 0, 1, 2], 6, method=1)
+    8.7407469159740733
     Args:
     r: Relevance scores (list or numpy) in rank order
     (first element is the first item)
@@ -101,8 +92,13 @@ def dcg_at_k(r, k, method=0):
     Returns:
     Discounted cumulative gain
     """
-    #write your code here (return appropriate value)
-    return 0
+    r = np.asfarray(r)[:k]
+    if r.size:
+        if method == 0:
+            return r[0] + np.sum(r[1:] / np.log2(np.arange(2, r.size + 2)))
+        elif method == 1:
+            return np.sum(r / np.log2(np.arange(2, r.size + 2)))
+    return 0.
 
 def ndcg_at_k(r, k, method=0):
     """Score is normalized discounted cumulative gain (ndcg)
